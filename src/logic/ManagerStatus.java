@@ -1,3 +1,5 @@
+package logic;
+
 public class ManagerStatus {
     private String description;
     private Status priority;

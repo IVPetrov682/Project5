@@ -1,14 +1,16 @@
+package logic;
+
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
+
     public static void main(String[] args) {
 
     Scanner scanner = new Scanner(System.in);
         InMemoryTaskManager managertask = new InMemoryTaskManager(); // объявили объект класса и запустили метод по заполнению стартовых задач
-        InMemoryHistoryManager inMemoryHistoryManager = new InMemoryHistoryManager();
-
+        Task.startVal();
 
         while (true) {
             printMenu();
@@ -52,11 +54,10 @@ public class Main {
                     break;
 
                 case "8":
-                    List<Task> command8 = inMemoryHistoryManager.getHistory(); //Для списка просмотренных задач нужен тип Task. Метод getHistory должен возвращать список именно такого типа. В итоге он будет выглядеть так — List<Task> getHistory()
+                    List<Task> command8 = managertask.inMemoryHistoryManager.getHistory(); //Для списка просмотренных задач нужен тип Task. Метод getHistory должен возвращать список именно такого типа. В итоге он будет выглядеть так — List<Task> getHistory()
                     if (command8 != null) {
-                        for (Task secTask : command8) {
-                            //System.out.println(secTask.get(InMemoryTaskManager.codeTask()));
-                            System.out.println(secTask); /// ПРОБЛЕМА !!! Тут надо извлечь codeTask, codeTaskName и вывести на печчать
+                        for (Task task : command8) {
+                            System.out.println("Просмотренная задача с ID " + task.getCodeTask() + " " + task.getCodeTaskName()); /// ПРОБЛЕМА !!! Тут надо извлечь codeTask, codeTaskName и вывести на печчать
                         }
                     }
                     break;
@@ -79,6 +80,9 @@ public class Main {
         System.out.println("8 - Показать историю просмотра задач");
         System.out.println("9 - Выход");
     }
+
+
+
 }
 
 

@@ -1,3 +1,5 @@
+package logic;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,12 +13,6 @@ public class Epic {
         miniTask.add(new ManagerStatus("Второстепенная задача 1", Status.INPROGRESS));
         miniTask.add(new ManagerStatus("Второстепенная задача 2", Status.DONE));
         subTask.put(1, miniTask);
-
-        //for (ManagerStatus secTask : miniTask) { // цикл for для поиска задач
-        //   if (secTask.getPriority() == Status.INPROGRESS) {
-        //        System.out.println(secTask.getDescription());
-        //    }
-        //}
     }
 }
 

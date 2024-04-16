@@ -1,3 +1,5 @@
+package logic;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,7 +14,7 @@ class InMemoryTaskManager implements TaskManager{
 
     InMemoryHistoryManager inMemoryHistoryManager = new InMemoryHistoryManager();
 
-        @Override
+    @Override
         public String printMainTask() {
         for (Integer keyPrint : task.numberTask.keySet()) {
             String taskPrint = task.numberTask.get(keyPrint).getDescription();
@@ -63,16 +65,15 @@ class InMemoryTaskManager implements TaskManager{
         int codeTask = scanner.nextInt();
         String codeTaskName = task.numberTask.get(codeTask).getDescription();
         System.out.println("Индификатор № " + codeTask + ". Задача: " + codeTaskName + ".");
-        // Печать второстепенных задач
+        Task task = new Task(codeTask, codeTaskName);
+
+        inMemoryHistoryManager.add(task);
         ArrayList<ManagerStatus> oneSubTaskPrint = epic.subTask.get(codeTask);
         if (oneSubTaskPrint != null) {
             for (ManagerStatus printSubTask : oneSubTaskPrint) {
                 System.out.println(printSubTask.getDescription());
             }
         }
-            inMemoryHistoryManager.add(task);                           // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! добавили объект класса в хистори
-
-        //    InMemoryHistoryManager.historytask.add(task);
         return "Что-то вернули в соответствии с ТЗ";
     }
 
@@ -129,6 +130,7 @@ class InMemoryTaskManager implements TaskManager{
         }
         return "Что-то вернули в соответствии с ТЗ";
     }
+
 }
 
 

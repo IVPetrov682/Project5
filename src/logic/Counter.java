@@ -1,4 +1,5 @@
-class Counter { // Класс счетчик
+package logic;
+public class Counter { // Класс счетчик
     private int count;
 
     public Counter() { // Присвоили начальное значение

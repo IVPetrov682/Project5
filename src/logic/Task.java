@@ -1,11 +1,20 @@
+package logic;
+
 import java.util.HashMap;
 
 public class Task {
-    HashMap<Integer, ManagerStatus> numberTask; // создали таблицу номер/задача
-
+    static HashMap<Integer, ManagerStatus> numberTask; // создали таблицу номер/задача
     static Counter number = new Counter(); // Создали объект класса счетчика
-    public Task(int codeTask, String codeTaskName) {
+    private int codeTask;
+    private String codeTaskName;
 
+
+    public Task(int codeTask, String codeTaskName) {
+        this.codeTask= codeTask;
+        this.codeTaskName= codeTaskName;
+    }
+
+    public static void startVal() {
         // с второстепенными задачами
         numberTask = new HashMap<>();
         number.increment(); // увеличили счетчик на 1
@@ -17,9 +26,15 @@ public class Task {
         System.out.println("На счетчике " + number.getCount()); // показали счетчик
 
         number.increment(); // увеличили счетчик на 3
-        numberTask.put(5, new ManagerStatus("Попить кофе", Status.INPROGRESS)); // сохранили в таблицу // вызвали ошибку. Задачи 1, 2, 4. По счетчику 3
+        numberTask.put(5, new ManagerStatus("Попить кофе", Status.INPROGRESS)); // сохранили в таблицу // вызвали ошибку. Задачи 1, 2, 5. По счетчику 3
         System.out.println("На счетчике " + number.getCount()); // показали счетчик на 1
-
     }
 
+
+    public int getCodeTask() {
+        return codeTask;
+    }
+    public String getCodeTaskName() {
+        return codeTaskName;
+    }
 }
