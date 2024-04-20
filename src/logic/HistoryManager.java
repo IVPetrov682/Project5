@@ -10,6 +10,7 @@ public interface HistoryManager {
 
     public int sizeHistory();
 
+    void removeTaskHistory(Task task);
 }
 
 

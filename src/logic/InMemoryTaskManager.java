@@ -63,15 +63,21 @@ class InMemoryTaskManager implements TaskManager{
         public String searchCodeTask() {
         System.out.println("Введите номер индификатора задачи");
         int codeTask = scanner.nextInt();
-        String codeTaskName = task.numberTask.get(codeTask).getDescription();
-        System.out.println("Индификатор № " + codeTask + ". Задача: " + codeTaskName + ".");
-        Task task = new Task(codeTask, codeTaskName);
+        if (!task.numberTask.containsKey(codeTask)) {
+            System.out.println("Такой задачи нет.");
+        }
+        else {
+            String codeTaskName = task.numberTask.get(codeTask).getDescription();
+            System.out.println("Индификатор № " + codeTask + ". Задача: " + codeTaskName + ".");
+            Task task = new Task(codeTask, codeTaskName);
 
-        inMemoryHistoryManager.add(task);
-        ArrayList<ManagerStatus> oneSubTaskPrint = epic.subTask.get(codeTask);
-        if (oneSubTaskPrint != null) {
-            for (ManagerStatus printSubTask : oneSubTaskPrint) {
+            inMemoryHistoryManager.add(task); ///////// Метод сохранения запроса в истории вызова задачи
+
+            ArrayList<ManagerStatus> oneSubTaskPrint = epic.subTask.get(codeTask);
+            if (oneSubTaskPrint != null) {
+                for (ManagerStatus printSubTask : oneSubTaskPrint) {
                 System.out.println(printSubTask.getDescription());
+                }
             }
         }
         return "Что-то вернули в соответствии с ТЗ";
@@ -100,19 +106,28 @@ class InMemoryTaskManager implements TaskManager{
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Введите индификатор задачи которую необходимо удалить");
-        int nameDelTask = scanner.nextInt();
+        int codeDelTask = scanner.nextInt();
 
-        if (task.numberTask.containsKey(nameDelTask)) {
-            task.numberTask.remove(nameDelTask);
+
+        if (task.numberTask.containsKey(codeDelTask)) {
+
+            // Создаем taskDel чтобы можно по нему очистить историю задач. Начало
+            String nameDelTask = task.numberTask.get(codeDelTask).getDescription();
+            Task taskDel = new Task(codeDelTask, nameDelTask);
+            inMemoryHistoryManager.removeTaskHistory(taskDel); ///////// Удаляем запрос в истории вызова задачи
+            // Создаем taskDel чтобы можно по нему очистить историю задач. Конец
+
+            task.numberTask.remove(codeDelTask);
             Task.number.minusOneCounter(); // Уменьшили счетчик
-            if (epic.subTask.containsKey(nameDelTask)) {
-                epic.subTask.remove(nameDelTask);
-                System.out.println("Подзадачи с индификатором " + nameDelTask + " удалены.");
+            if (epic.subTask.containsKey(codeDelTask)) {
+                epic.subTask.remove(codeDelTask);
+                System.out.println("Подзадачи с индификатором " + codeDelTask + " удалены.");
             }
-            System.out.println("Задача с индификатором " + nameDelTask + " удалена.");
+            System.out.println("Задача с индификатором " + codeDelTask + " удалена.");
         } else {
-            System.out.println("Задачи с индификатором " + nameDelTask + " не существует.");
+            System.out.println("Задачи с индификатором " + codeDelTask + " не существует.");
         }
+
         return "Что-то вернули в соответствии с ТЗ";
         }
         @Override
@@ -130,7 +145,4 @@ class InMemoryTaskManager implements TaskManager{
         }
         return "Что-то вернули в соответствии с ТЗ";
     }
-
 }
-
-

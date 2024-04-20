@@ -80,9 +80,6 @@ public class Main {
         System.out.println("8 - Показать историю просмотра задач");
         System.out.println("9 - Выход");
     }
-
-
-
 }
 
 
