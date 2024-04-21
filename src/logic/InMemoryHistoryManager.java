@@ -10,7 +10,6 @@ class InMemoryHistoryManager implements HistoryManager{
     static myLinkedList<Task> history = new myLinkedList<>();
     static HashMap<Integer, Node> nodeHistory = new HashMap<>();
 
-
     @Override
     public int sizeHistory() {
         return history.size();
@@ -35,7 +34,7 @@ class InMemoryHistoryManager implements HistoryManager{
                 Node del = nodeHistory.get(iD); // получили значение
                 history.deleteNode(del); // удаляем нод из самодельного списка через node
                 nodeHistory.remove(iD); // удаляем строку в таблице в истории задач
-                nodeHistory.put(iD, history.linkLast(task)); // Добавляем новое значение
+                nodeHistory.put(iD, history.linkLast(task)); // Дабавляем новое значение
             } else {
                 System.out.println("Уже последнее значение в истории");
             }
@@ -43,28 +42,32 @@ class InMemoryHistoryManager implements HistoryManager{
             System.out.println("Добавляем значение");
             nodeHistory.put(iD, history.linkLast(task));
         }
+
+        ///////////////тесты
+    //    System.out.println("Размер списка № " + history.size()); //!!!!!!!!!!!!!!!!!!!!!//////////////////////////////////////////////////////
+    //    System.out.println("Размер таблицы № " + nodeHistory.size()); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//////////////////////////////////////////////
+    //    Task x = history.getFirst();
+    //    Task y = history.getLast();
+    //    System.out.println("Голова. Задача № " + x.getCodeTask() + ". " + x.getCodeTaskName());
+    //    System.out.println("Хвост. Задача № " + y.getCodeTask() + ". " + y.getCodeTaskName());
+        //////////////////// конец теста
     }
 
     @Override
-    public List<Task> getHistory() { // команда 8
-        if (history != null) {
-        //    history.remove();
-        }
-        Task lastTask =  history.getLast();
-        System.out.println("ТЕСТ. Значение последнего элемента  " + lastTask.getCodeTaskName()); // Тест! Вызываем ошибку!!!!!!!!
+    public List<Task> getHistory() {
         return history.asList(); // Для списка просмотренных задач нужен тип Task. Метод getHistory должен возвращать список именно такого типа. В итоге он будет выглядеть так — List<Task> getHistory()
     }
     @Override
     public void removeTaskHistory(Task task) {
-
         int iD = task.getCodeTask(); // получили ключ
         Node del = nodeHistory.get(iD); // получили значение
+
         history.deleteNode(del); // удаляем нод из самодельного списка через node
         nodeHistory.remove(iD); // удаляем строку в таблице в истории задач
 
-
         System.out.println("Размер списка после ревув " + history.size());
         System.out.println("Размер таблицы после ревув  " + nodeHistory.size());
+
 
     }
 
@@ -78,16 +81,11 @@ class InMemoryHistoryManager implements HistoryManager{
 
         public List<T> asList () {
            List<T> result = new ArrayList<>();
-        //   if (result != null) {
-        //       result.clear();
-        //   }
            Node<T> curr = head;
            while (curr != null) {
                result.add(curr.data);
                curr = curr.next;
            }
-            System.out.println("Размер списка history в методе asList " + history.size());
-            System.out.println("Размер списка result в методе asList " + result.size());
            return result;
         }
 
@@ -98,9 +96,9 @@ class InMemoryHistoryManager implements HistoryManager{
                 System.out.println("Cписок пуст");
                 return;
             }
+
             if (head == del) {
                 head = del.next;
-            //    history.clear();
                 size--;
             }
 
@@ -132,14 +130,6 @@ class InMemoryHistoryManager implements HistoryManager{
                 throw new NoSuchElementException();
             return tail.data;
         }
-
-        public T getFirst() {
-            final Node<T> curHead = head;
-            if (curHead == null)
-                throw new NoSuchElementException();
-            return head.data;
-        }
-
 
         public int size() {
             return this.size;
