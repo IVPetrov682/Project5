@@ -75,12 +75,13 @@ class InMemoryHistoryManager implements HistoryManager{
         private int size = 1;
         private Node<T> next;
         private Node<T> prev;
+        public List<T> result = new ArrayList<>();
 
         public List<T> asList () {
-           List<T> result = new ArrayList<>();
-        //   if (result != null) {
-        //       result.clear();
-        //   }
+        //   List<T> result = new ArrayList<>();
+           if (result != null) {
+               result.clear();
+           }
            Node<T> curr = head;
            while (curr != null) {
                result.add(curr.data);
